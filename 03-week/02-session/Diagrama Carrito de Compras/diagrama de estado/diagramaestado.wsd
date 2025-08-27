@@ -1,0 +1,9 @@
+@startuml estado
+[*] --> Vacío
+Vacío --> ConItems : agregarProducto()
+ConItems --> Vacío : eliminarÚltimo()
+ConItems --> Confirmando : procederAlPago()
+Confirmando --> Pagado : pagoAprobado()
+Confirmando --> ConItems : pagoFallido()
+Pagado --> [*]
+@enduml

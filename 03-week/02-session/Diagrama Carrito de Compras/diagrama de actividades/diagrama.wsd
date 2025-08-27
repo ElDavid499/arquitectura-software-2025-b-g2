@@ -1,0 +1,22 @@
+@startuml hello
+start
+:Usuario navega catálogo;
+:Selecciona producto;
+if (¿Hay stock?) then (sí)
+  :Agregar al carrito;
+  :Ver carrito;
+  if (¿Desea pagar?) then (sí)
+    :Iniciar sesión/registro;
+    :Ingresar datos de pago;
+    :Confirmar compra;
+    stop
+  else (no)
+    :Seguir comprando;
+    back to start
+  endif
+else (no)
+  :Mostrar sin stock;
+  :Sugerir alternativas;
+  back to start
+endif
+@enduml

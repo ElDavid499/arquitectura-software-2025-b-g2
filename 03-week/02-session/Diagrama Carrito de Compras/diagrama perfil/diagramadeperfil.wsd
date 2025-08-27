@@ -1,0 +1,16 @@
+@startuml diagrama
+package "ECommerceProfile" <<profile>> {
+  class Boundary <<stereotype>>
+  class Control  <<stereotype>>
+  class Entity   <<stereotype>>
+}
+
+package "Modelo" {
+  class UI <<Boundary>>
+  class ServicioCarrito <<Control>>
+  class Producto <<Entity>>
+}
+
+UI --> ServicioCarrito
+ServicioCarrito --> Producto
+@enduml

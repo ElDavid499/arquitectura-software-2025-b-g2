@@ -1,0 +1,22 @@
+@startuml title Diagrama de Despliegue - Carrito de Compras
+
+node "Cliente" {
+  artifact "Navegador Web (SPA React)"
+}
+
+node "Balanceador de Carga" as LB
+
+node "Servidor de Aplicaciones" {
+  component "Servicio Carrito"
+  component "Servicio Catálogo"
+  component "Servicio Pagos"
+}
+
+database "Base de Datos\n(PostgreSQL)" as DB
+
+"Cliente" --> LB
+LB --> "Servidor de Aplicaciones"
+"Servidor de Aplicaciones" --> DB
+@enduml
+
+

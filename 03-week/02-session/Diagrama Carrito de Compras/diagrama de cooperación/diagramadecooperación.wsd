@@ -1,0 +1,15 @@
+@startuml Inventario
+skinparam linetype ortho
+
+object Usuario as U
+object "Carrito" as C
+object "Inventario" as I
+object "Pago" as P
+
+U --> C : 1) agregar(prod)
+C --> I : 2) reservar(prod)
+U --> P : 3) pagar(total)
+P --> C : 4) confirmar()
+C --> I : 5) descontarStock()
+C --> U : 6) mostrarRecibo()
+@enduml

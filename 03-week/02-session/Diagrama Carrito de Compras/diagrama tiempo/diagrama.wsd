@@ -1,0 +1,15 @@
+@startuml tiempo
+robust "Usuario" as U
+robust "Sistema" as S
+robust "PasarelaPago" as G
+
+@0  U is "Navegando"
+@0  S is "Idle"
+@5  U -> S : click \"Agregar\"
+@6  S is "Actualizando carrito"
+@10 S -> U : OK
+@12 U -> S : \"Pagar\"
+@13 S -> G : autorizar(total)
+@18 G -> S : aprobado
+@19 S -> U : confirmación
+@enduml

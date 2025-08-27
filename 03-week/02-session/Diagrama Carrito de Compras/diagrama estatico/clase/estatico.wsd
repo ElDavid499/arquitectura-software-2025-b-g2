@@ -1,0 +1,36 @@
+@startuml pago
+class Usuario {
+  +id: UUID
+  +email: String
+  +registrar()
+  +iniciarSesion()
+}
+
+class Producto {
+  +id: UUID
+  +nombre: String
+  +precio: Money
+  +stock: int
+}
+
+class Carrito {
+  +id: UUID
+  +total(): Money
+  +agregar(p: Producto, qty: int)
+  +remover(p: Producto)
+}
+
+class Pedido {
+  +id: UUID
+  +estado: EstadoPedido
+  +confirmarPago()
+}
+
+enum EstadoPedido { NUEVO; PAGADO; ENVIADO; CANCELADO }
+
+Usuario "1" -- "1" Carrito : posee >
+Carrito "*" -- "*" Producto : ítems >
+Pedido "*" -- "*" Producto
+Usuario "1" -- "*" Pedido : realiza >
+@enduml
+ 

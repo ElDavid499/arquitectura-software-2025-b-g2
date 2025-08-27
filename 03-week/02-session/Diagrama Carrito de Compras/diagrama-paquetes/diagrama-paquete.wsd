@@ -1,0 +1,23 @@
+@startuml diagrama
+package "Dominio" {
+  class Producto
+  class Carrito
+  class Pedido
+}
+
+package "Aplicación" {
+  class ServicioCarrito
+  class ServicioPedido
+}
+
+package "Infraestructura" {
+  class RepositorioProducto
+  class RepositorioPedido
+}
+
+Aplicación ..> Dominio
+Infraestructura ..> Dominio
+ServicioCarrito ..> RepositorioProducto
+ServicioPedido ..> RepositorioPedido
+@enduml
+ 

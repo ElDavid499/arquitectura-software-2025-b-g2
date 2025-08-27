@@ -1,0 +1,21 @@
+@startuml hola 
+left to right direction
+actor Usuario
+actor Admin
+
+rectangle "E-Commerce" {
+  usecase "Buscar productos" as UC1
+  usecase "Agregar al carrito" as UC2
+  usecase "Registrar/Ingresar" as UC3
+  usecase "Pagar pedido" as UC4
+  usecase "Gestionar inventario" as UC5
+
+  Usuario -- UC1
+  Usuario -- UC2
+  Usuario -- UC3
+  Usuario -- UC4
+  Admin   -- UC5
+
+  UC4 .> UC3 : <<include>>
+}
+@enduml

@@ -1,0 +1,17 @@
+@@startuml cosa
+    class CompraRapida {
+        <<goal>>
+    }
+    class ReducirAbandonoCarrito {
+        <<goal>>
+    }
+    class AumentarConversion {
+        <<goal>>
+    }
+    class MejorarConfiabilidad {
+        <<goal>>
+    }
+
+    CompraRapida --> AumentarConversion : soporta
+    ReducirAbandonoCarrito --> AumentarConversion : soporta
+    MejorarConfiabilidad --> AumentarConversion : soporta

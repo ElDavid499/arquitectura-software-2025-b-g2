@@ -1,0 +1,14 @@
+@startuml www
+component "Frontend Web" as FE
+component "Servicio Carrito" as CART
+component "Servicio Catálogo" as CATALOG
+component "Servicio Pagos" as PAY
+database "DB E-Commerce" as DB
+
+FE --> CART
+FE --> CATALOG
+FE --> PAY
+CART --> DB
+CATALOG --> DB
+PAY --> DB : transacciones
+@enduml

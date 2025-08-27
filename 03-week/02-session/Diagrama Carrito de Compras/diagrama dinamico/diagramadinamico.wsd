@@ -1,0 +1,20 @@
+ @startuml compra
+object "c1:Carrito" as C {
+  total = 120.00
+}
+object "p1:Producto" as P1 {
+  nombre = "Mouse"
+  precio = 60.00
+}
+object "p2:Producto" as P2 {
+  nombre = "Teclado"
+  precio = 60.00
+}
+object "u1:Usuario" as U {
+  email = "cliente@ejemplo.com"
+}
+
+U ..> C : propietario
+C -- P1
+C -- P2
+@enduml
