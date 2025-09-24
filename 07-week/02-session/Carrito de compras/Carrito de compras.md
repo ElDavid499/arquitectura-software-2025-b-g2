@@ -1,4 +1,4 @@
-# Taller Arquitectura & Esqueleto Spring Boot
+# Taller Arquitectura & Esqueleto 
 
 ## 1. Documentación de los casos
 
