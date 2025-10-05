@@ -1,0 +1,103 @@
+@startuml Diagrama
+' ===========================================================
+' Diagrama de Componentes - Sistema FastTrack (Microservicios)
+' ===========================================================
+
+skinparam componentStyle rectangle
+skinparam shadowing false
+title FastTrack - Arquitectura de Microservicios
+
+' === Clientes ===
+package "Clientes" {
+  [Web App\n(React / Angular)] as Web
+  [Mobile App\n(Flutter / React Native)] as Mobile
+  [Admin Console\n(React / Vue)] as Admin
+}
+
+' === Gateway / API Management ===
+package "Gateway" {
+  [API Gateway\n(Kong / NGINX / AWS API Gateway)] as Gateway
+  [BFF (Backend for Frontend)\nOpcional] as BFF
+}
+
+' === Microservicios ===
+package "Microservicios" {
+  [Auth Service\n(Gestión de usuarios y tokens)] as Auth
+  [Customer Service\n(Perfiles y direcciones)] as Customer
+  [Shipments Service\n(Gestión de envíos nacionales e internacionales)] as Shipments
+  [Tracking Service\n(Seguimiento GPS en tiempo real)] as Tracking
+  [Fleet Service\n(Gestión de flota y conductores)] as Fleet
+  [Notifications Service\n(Emails, SMS, push)] as Notifications
+  [Billing Service\n(Facturación y pagos futuros)] as Billing
+}
+
+' === Infraestructura e Integraciones ===
+package "Infraestructura e Integraciones" {
+  [Message Broker\n(Kafka / RabbitMQ)] as Broker
+  [Cache\n(Redis)] as Cache
+  [Almacenamiento de Objetos\n(S3 / MinIO)] as ObjectStorage
+  database DB_Auth as DBAuth
+  database DB_Shipments as DBShip
+  database DB_Tracking as DBTrack
+  database DB_Customer as DBCust
+  database DB_Fleet as DBFleet
+  [Monitoreo / Logs\n(Prometheus / Grafana / ELK)] as Monitoring
+  [Proveedores Externos\n(Twilio, Mapbox, APIs de transporte)] as ExternalAPIs
+}
+
+' === Relaciones ===
+
+' Clientes -> Gateway
+Web --> Gateway : HTTPS / JSON
+Mobile --> Gateway : HTTPS / JSON
+Admin --> Gateway : HTTPS / JSON
+
+' Gateway -> BFF
+Gateway --> BFF : Ruteo / Autenticación
+
+' BFF / Gateway -> Microservicios
+BFF --> Auth
+BFF --> Customer
+BFF --> Shipments
+BFF --> Tracking
+BFF --> Notifications
+Gateway --> Fleet
+Gateway --> Billing
+
+' Microservicios -> Bases de Datos
+Auth --> DBAuth
+Customer --> DBCust
+Shipments --> DBShip
+Tracking --> DBTrack
+Fleet --> DBFleet
+Billing --> DBShip
+
+' Microservicios -> Cache y Almacenamiento
+Tracking --> Cache : Posiciones recientes
+Shipments --> ObjectStorage : Etiquetas / Documentos
+Customer --> ObjectStorage : Archivos de cliente
+
+' Comunicación por eventos
+Shipments --> Broker : Evento ShipmentCreated
+Tracking --> Broker : Evento LocationUpdated
+Fleet --> Broker : Evento VehicleStatus
+Notifications --> Broker : Escucha eventos
+Billing --> Broker : Escucha eventos de envío completado
+
+' Notificaciones externas
+Notifications --> ExternalAPIs : Email / SMS / Push
+Tracking --> ExternalAPIs : Mapas / GPS
+
+' Monitoreo y logs
+Microservicios --> Monitoring
+Gateway --> Monitoring
+
+' Nota explicativa
+note right of Microservicios
+Cada microservicio es independiente,
+tiene su propia base de datos,
+y se comunica mediante APIs REST/gRPC
+y eventos a través de un broker.
+end note
+
+@enduml
